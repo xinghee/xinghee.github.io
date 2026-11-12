@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星河 · 文档与笔记</title>
+<meta name="description" content="阅读笔记、技术文档与论文重排版。">
+<style>
+:root{
+  --bg:#efe8d8; --paper:#fbf7ee; --paper-2:#f5eeda;
+  --ink:#2e2a22; --ink-2:#5a5142; --ink-3:#8b8069;
+  --line:#ded2b8; --gold:#a2703a; --accent:#9c3d2e;
+  --shadow:0 1px 2px rgba(90,70,40,.06), 0 10px 30px rgba(90,70,40,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"HarmonyOS Sans SC","HarmonyOS Sans","Source Han Sans SC","Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  line-height:1.85;-webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 15% 10%,rgba(255,255,255,.6),transparent 45%),
+             radial-gradient(circle at 85% 90%,rgba(214,196,158,.35),transparent 50%);
+}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:92px 26px 100px}
+
+header{margin-bottom:56px}
+.eyebrow{font-size:11.5px;letter-spacing:.22em;color:var(--gold);font-weight:700;margin-bottom:14px}
+h1{font-size:clamp(30px,5vw,42px);margin:0 0 14px;font-weight:700;letter-spacing:-.01em;color:#241f18;line-height:1.25}
+.lede{font-size:15px;color:var(--ink-3);margin:0;max-width:46ch;line-height:1.9}
+
+.list-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  border-bottom:1px solid var(--line);padding-bottom:10px;margin:0 0 6px;
+}
+.list-head h2{font-size:12px;letter-spacing:.2em;color:var(--ink-3);font-weight:700;margin:0}
+.count{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+ul.entries{list-style:none;margin:0;padding:0}
+ul.entries li{border-bottom:1px solid rgba(222,210,184,.7)}
+ul.entries a{
+  display:block;text-decoration:none;color:inherit;padding:26px 4px 24px;
+  transition:.18s;
+}
+ul.entries a:hover{padding-left:14px;background:linear-gradient(90deg,rgba(192,138,78,.09),transparent 70%)}
+.entry-title{
+  font-size:19px;font-weight:700;color:#241f18;line-height:1.5;margin-bottom:9px;
+  display:flex;align-items:baseline;gap:10px;
+}
+.entry-title .arrow{color:var(--gold);font-size:15px;opacity:0;transform:translateX(-4px);transition:.18s;flex-shrink:0}
+ul.entries a:hover .entry-title .arrow{opacity:1;transform:translateX(0)}
+.entry-desc{font-size:13.8px;color:var(--ink-2);line-height:1.85;margin-bottom:12px;max-width:62ch}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;color:var(--ink-3)}
+.meta .dot{width:3px;height:3px;border-radius:50%;background:var(--gold-2,#c08a4e)}
+.tag{
+  display:inline-block;padding:1px 8px;border:1px solid var(--line);border-radius:20px;
+  background:var(--paper);font-size:11.5px;color:var(--gold);font-weight:600;
+}
+
+footer{
+  margin-top:64px;padding-top:24px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink-3);line-height:1.9;
+}
+footer a{color:var(--gold);text-decoration:none;border-bottom:1px dotted var(--line)}
+footer a:hover{border-bottom-color:var(--gold)}
+
+@media (max-width:520px){
+  .wrap{padding:64px 20px 80px}
+  .entry-title{font-size:17px}
+  .entry-desc{font-size:13px}
+  ul.entries a{padding:20px 2px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">XINGHE · DOCS</div>
+    <h1>文档与笔记</h1>
+    <p class="lede">论文的重排版、技术调研与自用小工具。所有页面均为单文件，离线可开。</p>
+  </header>
+
+  <div class="list-head">
+    <h2>阅 读</h2>
+    <span class="count">共 1 篇</span>
+  </div>
+
+  <ul class="entries">
+    <li>
+      <a href="./czgy/">
+        <div class="entry-title"><span class="arrow">→</span>中国财政供养人员规模估算与结构分析</div>
+        <div class="entry-desc">
+          2020 年财政供养人员达 6&thinsp;846 万人，占常住人口 4.85%。规模仍升但增速放缓，增量主要来自离退休与编外人员，且空间上呈现“西高东低”的错配。基于《中国会计年鉴》等多份官方口径的分层估算。
+        </div>
+        <div class="meta">
+          <span>张军 · 马欣榕 · 刘志阔</span><i class="dot"></i>
+          <span>《经济学》（季刊）2025 年第 4 期</span><i class="dot"></i>
+          <span class="tag">财政</span>
+          <span class="tag">公共部门</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <footer>
+    重排版仅作个人阅读，版权归原作者与期刊所有。<br>
+    构建于 <a href="https://github.com/xinghee/xinghee.github.io">GitHub Pages</a> · 纯静态，无追踪。
+  </footer>
+
+</div>
+</body>
+</html>
