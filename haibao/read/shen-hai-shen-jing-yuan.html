@@ -9,8 +9,22 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Microsoft YaHei","HarmonyOS Sans SC","Source Han Sans SC","PingFang SC","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.9}
 a{color:#7a6134;text-decoration:none;border-bottom:1px dotted #c3ae86}
 a:hover{color:#5c4720}
-.wrap{max-width:760px;margin:0 auto;padding:26px 20px 80px}
-.topbar{max-width:760px;margin:0 auto;padding:16px 20px 0;font-size:13px;color:var(--ink3)}
+.wrap{max-width:1090px;margin:0 auto;padding:26px 20px 80px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr)}
+.layout.has-toc{grid-template-columns:208px minmax(0,1fr);gap:30px}
+.main{min-width:0;max-width:770px}
+body.no-toc .main{margin:0 auto}
+body.no-toc .topbar,body.no-toc footer{max-width:770px}
+.side{align-self:stretch}
+.side-inner{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto;padding:16px 0 6px;scrollbar-width:thin}
+.side .toc{background:transparent;border:none;border-left:2px solid var(--line);border-radius:0;padding:0 0 0 14px;margin:0}
+.side .toc ol{columns:1;column-gap:0}
+.side .toc li{position:relative}
+.side .toc a{font-size:13px;line-height:1.6;padding:3px 0;color:var(--ink2);display:block;border-bottom:none}.side .toc a.on{color:var(--gold);font-weight:700}.side .toc a.on::before{content:'';position:absolute;left:0;width:2px;height:1.1em;background:var(--gold);margin-left:-15px;margin-top:.25em}
+.side .toc a:hover{color:var(--gold)}
+.side .toc .grp{border-top:1px dashed var(--line);margin-top:9px;padding-top:8px}
+.side .toc .grp a{display:block;margin-right:0;font-size:12.5px}
+.topbar{max-width:1090px;margin:0 auto;padding:16px 20px 0;font-size:13px;color:var(--ink3)}
 .topbar a{border-bottom:none;color:var(--ink2)}
 article{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:28px 30px 34px;margin-top:14px}
 h1{font-size:25px;line-height:1.4;margin:0 0 10px;letter-spacing:.5px}
@@ -37,10 +51,12 @@ hr.sep{border:none;border-top:1px dashed var(--line);margin:34px 0 22px}
 .toc .grp{margin-top:11px;padding-top:9px;border-top:1px dashed #e0d2ad;font-size:13px}
 .toc .grp a{display:inline-block;margin-right:14px;font-size:13.5px}
 article h2{scroll-margin-top:18px}
-@media(max-width:680px){.toc ol{columns:1}}
+@media(max-width:1020px){.layout.has-toc{grid-template-columns:1fr;gap:0}.side-inner{position:static;max-height:none;padding:0;overflow:visible}
+.side{margin:0 0 16px}.side .toc{background:var(--goldbg);border:1px solid #e6d9b8;border-left:1px solid #e6d9b8;border-radius:10px;padding:14px 16px}.side .toc ol{columns:2}}
+@media(max-width:680px){.toc ol,.side .toc ol{columns:1}}
 .extra-title{font-size:13px;color:var(--ink3);letter-spacing:1px;margin:0 0 8px}
 .pager{display:flex;justify-content:space-between;gap:12px;margin-top:26px;font-size:14px}
-footer{max-width:760px;margin:26px auto 0;padding:0 20px;color:var(--ink3);font-size:12.5px;line-height:1.9}
+footer{max-width:1090px;margin:26px auto 0;padding:0 20px;color:var(--ink3);font-size:12.5px;line-height:1.9}
 /* 目录页 */
 header.hero{border-bottom:2px solid var(--line);padding-bottom:18px;margin-bottom:8px}
 header.hero h1{font-size:27px}
@@ -59,9 +75,11 @@ ul.list li .w{float:right;color:var(--ink3);font-size:12px;font-weight:400}
 .empty{color:var(--ink3);font-size:13px;padding:20px 0;display:none}
 @media(max-width:680px){ul.list{grid-template-columns:1fr}article{padding:20px 18px 26px}h1{font-size:21px}}
 </style></head>
-<body>
+<body class="no-toc">
 <div class="topbar"><a href="../index.html">← 目录</a></div>
 <div class="wrap">
+<div class="layout">
+<div class="main">
 <article>
 <h1>深海神经元</h1>
 <div class="meta">王凯　·　约 12,018 字　·　<span class="pill ai">AI 评委 · 2 等奖 8192 元</span></div>
@@ -69,5 +87,34 @@ ul.list li .w{float:right;color:var(--ink3);font-size:12px;font-weight:400}
 </article>
 <div class="pager"><span><a href="ying-er-gong-chang.html">← 婴儿工厂</a></span><span><a href="zhu-xing-zhe-jiu-guan.html">逐星者酒馆 →</a></span></div>
 </div>
+</div>
+</div>
 <footer>本页为个人阅读存档，作品版权归各作者所有；获奖信息依据睡前消息 1130 期与官方专栏（B 站 cv53913151）整理。如作者希望下线，请联系站点维护者。</footer>
+<script>(function(){
+  var links=[].slice.call(document.querySelectorAll('.side .toc a'));
+  if(!links.length) return;
+  var heads=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  var cur=null, ticking=false;
+  function upd(){
+    ticking=false;
+    var best=-1;
+    for(var i=0;i<heads.length;i++){
+      var h=heads[i]; if(!h) continue;
+      if(h.getBoundingClientRect().top<=140) best=i;
+    }
+    var want=best<0?null:links[best];
+    if(want===cur) return;
+    if(cur) cur.classList.remove('on');
+    cur=want;
+    if(cur){cur.classList.add('on');
+      var box=cur.closest('.side-inner');
+      if(box&&(cur.offsetTop<box.scrollTop||cur.offsetTop>box.scrollTop+box.clientHeight-40)){
+        box.scrollTop=Math.max(0,cur.offsetTop-box.clientHeight/2);
+      }}
+  }
+  function onScroll(){ if(!ticking){ticking=true;requestAnimationFrame(upd);} }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  upd();
+})();</script>
 </body></html>
